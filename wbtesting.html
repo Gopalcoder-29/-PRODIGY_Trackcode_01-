@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Navigation</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f8fafc;
+            padding-top: 70px;
+            /* Space for fixed navbar */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            background: linear-gradient(90deg, #91e31d 0%, #34d399 100%);
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 2px 12px rgba(80, 80, 180, 0.10);
+            z-index: 1000;
+            transition: background 0.3s, box-shadow 0.3s;
+            padding: 0;
+            animation: slideIn 0.8s ease;
+        }
+
+        .navbar.scrolled {
+            background: #222;
+            box-shadow: 0 4px 18px rgba(80, 80, 180, 0.18);
+        }
+
+        .navbar ul {
+            margin: 0;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            height: 80px;
+            gap: 10px;
+        }
+
+        .navbar li {
+            list-style: none;
+            margin: 0 10px;
+            padding-top: 3px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .navbar li a {
+            padding: 10px 22px;
+            text-decoration: none;
+            color: #6b3693;
+            font-size: 1.08em;
+            font-weight: 600;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px #e0e7ff;
+            transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            position: relative;
+        }
+
+        .navbar li a:hover,
+        .navbar li a:focus {
+            color: #fff;
+            background: linear-gradient(90deg, #34d399 0%, #6366f1 100%);
+            transform: scale(1.08);
+            box-shadow: 0 4px 16px #c7d2fe;
+            outline: none;
+        }
+
+        .navbar li a::after {
+            content: '';
+            display: block;
+            margin: auto;
+            height: 3px;
+            width: 0;
+            background: #6366f1;
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .navbar li a:hover::after,
+        .navbar li a:focus::after {
+            width: 80%;
+        }
+
+        .search {
+            margin-left: auto;
+            color: white;
+            padding: 0 0 0 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar input {
+            border: 2px solid #34d399;
+            border-radius: 20px;
+            padding: 8px 16px;
+            width: 160px;
+            font-size: 1em;
+            margin-left: 10px;
+            outline: none;
+            transition: border 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px #e0e7ff;
+        }
+
+        .navbar input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 4px 16px #c7d2fe;
+        }
+
+        @media (max-width: 700px) {
+            .navbar ul {
+                flex-direction: column;
+                height: auto;
+                padding: 10px 0;
+                gap: 0;
+            }
+
+            .navbar li {
+                margin: 8px 0;
+            }
+
+            .search {
+                padding: 10px 0 0 0;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .navbar input {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Contact us</a></li>
+            <div class="search">
+                <input type="text" name="search" id="search" placeholder="Search this website">
+            </div>
+        </ul>
+    </nav>
+    <div style="
+    max-width:700px;
+    margin:40px auto 0 auto;
+    padding:32px 24px;
+    background:linear-gradient(120deg,#f8fafc 60%,#e0e7ff 100%);
+    border-radius:18px;
+    box-shadow:0 4px 24px #e0e7ff;
+    transition:box-shadow 0.2s, transform 0.2s;
+    font-size:1.08em;
+    color:#222;
+    position:relative;
+  ">
+        <h1
+            style="color:#6366f1;text-align:center;margin-bottom:18px;font-size:2em;font-weight:700;letter-spacing:1px;">
+            Welcome to Interactive Navigation Demo
+        </h1>
+        <p style="text-align:center;font-size:1.15em;color:#065f46;margin-bottom:18px;">
+            Try scrolling or tapping the navigation menu above to see interactive effects!
+        </p>
+        <ul style="padding-left:1.2em;margin-bottom:18px;">
+            <li><b>Home:</b> Main introduction and latest updates.</li>
+            <li><b>About:</b> Learn more about us and our mission.</li>
+            <li><b>Service:</b> Explore what we offer.</li>
+            <li><b>Contact us:</b> Get in touch for queries or support.</li>
+        </ul>
+
+        <p style="margin-bottom:600px;"></p>
+    </div>
+    <script>
+        // Change navbar style on scroll
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Touch effect for mobile (simulate hover)
+        document.querySelectorAll('.navbar li a').forEach(function (link) {
+            link.addEventListener('touchstart', function () {
+                link.classList.add('hover');
+            });
+            link.addEventListener('touchend', function () {
+                setTimeout(() => link.classList.remove('hover'), 400);
+            });
+        });
+    </script>
+</body>
+
+</html>
